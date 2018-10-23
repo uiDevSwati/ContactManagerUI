@@ -1,0 +1,24 @@
+.appHeading {
+    background: #3399e0;
+    height: 100px;
+    padding: 30px;
+}
+.header{
+    padding: 20px;
+    .pageHeading {
+        float: left;
+    }
+    .buttonWrapper {
+        button {
+            float: right;
+            margin-right: 30px;
+        } 
+    }
+}
+.row {
+    margin: 30px;
+}
+.aboutApp{
+    text-align: center;
+    font-size: 18px;
+}

@@ -1,0 +1,92 @@
+<div class="formWrapper row" *ngIf="dataLoaded">
+    <form #contactForm="ngForm" name="contactForm" class="col-md-12">
+        <div class="header row">
+            <div class="col-md-5 pageHeading">
+                <h3>
+                    {{ pageHeading }}
+                </h3>
+            </div>
+            <div class="col-md-7 buttonWrapper">
+                <button class="btn btn-primary col-md-3" (click)="cancel()"> {{cancelButton}} </button>
+                <button class="btn btn-primary col-md-4" *ngIf="mode!=='view'" (click)="save()" [disabled]="contactForm.invalid">
+                    {{ saveButton }} </button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <label class="col-md-6" name="firstNameLabel">First Name </label>
+                <input class="col-md-5" type="text" [disabled]="mode === 'view'" [(ngModel)]="contact.firstName" name="firstName"
+                    #firstNameRef="ngModel" required minlength=3 />
+                <span class="requiredClass col-md-1">*</span>
+            </div>
+            <!-- error message -->
+            <div class="errorMessage col-md-12" *ngIf="firstNameRef.invalid && (firstNameRef.dirty || firstNameRef.touched)">
+                <div class="col-md-6" *ngIf="firstNameRef.errors.minlength" style="color:red">
+                    First Name must be at least 3 characters long.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <label class="col-md-6" name="lastNameLabel">Last Name</label>
+                <input class="col-md-5" type="text" [disabled]="mode === 'view'" [(ngModel)]="contact.lastName" name="lastName"
+                    required minlength="3" #lastNameRef="ngModel" />
+                <span class="requiredClass col-md-1">*</span>
+            </div>
+            <!-- error message -->
+            <div class="errorMessage col-md-12" *ngIf="lastNameRef.invalid && (lastNameRef.dirty || lastNameRef.touched)">
+                <div class="col-md-6" *ngIf="lastNameRef.errors.minlength" style="color:red">
+                    Last Name must be at least 3 characters long.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <label class="col-md-6" name="phoneNoLabel">Contact Number</label>
+                <input class="col-md-5" type="text" [disabled]="mode === 'view'" [(ngModel)]="contact.phoneNo" name="phoneNo"
+                    #phoneNoRef="ngModel" required minlength="10" maxlength="16" />
+                <span class="requiredClass col-md-1">*</span>
+            </div>
+            <!-- error message -->
+            <div class="errorMessage col-md-12" *ngIf="phoneNoRef.invalid && (phoneNoRef.dirty || phoneNoRef.touched)">
+                <div class="col-md-6" *ngIf="phoneNoRef.errors.minlength" style="color:red">
+                    Phone Number has to be 10-16 characters long.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <label class="col-md-6" name="emailLabel">Email ID</label>
+                <input class="col-md-5" type="email" emailvalidator [disabled]="mode === 'view'" [(ngModel)]="contact.email"
+                    name="email" required #emailRef="ngModel" />
+                <span class="requiredClass col-md-1">*</span>
+            </div>
+            <!-- error message -->
+            <div class="errorMessage col-md-12" *ngIf="emailRef.invalid && (emailRef.dirty || emailRef.touched)">
+                <div class="col-md-6" *ngIf="emailRef.errors.required" style="color:red">
+                    Email is required.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <label class="col-md-6" name="alternateNoLabel">Alternate Number</label>
+                <input class="col-md-5" type="text" [disabled]="mode === 'view'" maxlength="16" minlength="10"
+                    [(ngModel)]="contact.alternateNo" name="alternateNo" #alternateNoRef="ngModel" />
+            </div>
+            <!-- error message -->
+            <!-- <div class="errorMessage col-md-12" *ngIf="alternateNoRef.invalid && (alternateNoRef.dirty && alternateNoRef.touched)">
+                <div *ngIf="alternateNoRef.errors.minlength" style="color:red">
+                    Phone Number has to be 10-16 characters long.
+                </div>
+            </div> -->
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <label class="col-md-6" name="addressLabel">Address</label>
+                <input class="col-md-5" type="address" [disabled]="mode === 'view'" [(ngModel)]="contact.address" name="address"
+                    required />
+            </div>
+        </div>
+    </form>
+</div>

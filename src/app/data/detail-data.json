@@ -1,0 +1,38 @@
+[
+    {
+        "firstName": "Swati",
+        "lastName": "Mittal",
+        "phoneNo": "6254873295",
+        "email": "abc@gmail.com",
+        "address": "Flat no 12, Building No xyz, Pune",
+        "alternateNo": "8977866668",
+        "id": "1"
+    },
+    {
+        "firstName": "David",
+        "lastName": "Chauff",
+        "phoneNo": "1111111111",
+        "email": "xyz@gmail.com",
+        "address": "Flat no 24, new apartments, Pune",
+        "alternateNo": "",
+        "id": "2"
+    },
+    {
+        "firstName": "Jims",
+        "lastName": "Chacko",
+        "phoneNo": "9576350924",
+        "email": "jchacko@ymail.com",
+        "address": "B34/202, Famous City, India",
+        "alternateNo": "",
+        "id": "3"
+    },
+    {
+        "firstName": "Pheobe",
+        "lastName": "Buffay",
+        "phoneNo": "0935852846",
+        "email": "pheobeb@icloud.com",
+        "address": "Block D, Ft No. 101, The Village, NY City",
+        "alternateNo": "6954664872",
+        "id": "4"
+    }
+]

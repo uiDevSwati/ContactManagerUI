@@ -1,0 +1,61 @@
+<div class="displayWrapper">
+    <div class="header col-md-12 row">
+        <div class="col-md-6 pageHeading">
+            <h4>
+                Contact Details
+            </h4>
+        </div>
+        <div class="col-md-6 buttonWrapper">
+            <button class="btn btn-primary col-md-6" (click)="addContact('add')"> Add new Contact</button>
+        </div>
+    </div>
+    <div class="displayContainer row col-md-10">
+        <table>
+            <thead>
+                <th style="width:150px;">
+                    {{ headers.firstName}}
+                </th>
+                <th style="width:150px;">
+                    {{ headers.lastName }}
+                </th>
+                <th style="width:150px;">
+                    {{ headers.phoneNo }}
+                </th>
+                <th style="width:250px;">
+                    {{ headers.email }}
+                </th>
+                <th colspan="3" style="width:350px;">
+                    {{ headers.actions}}
+                </th>
+            </thead>
+            <tbody *ngIf="contactData">
+                <tr *ngFor="let contact of contactData">
+                    <td style="width:150px;">
+                        {{ contact.firstName }}
+                    </td>
+                    <td style="width:150px;">
+                        {{ contact.lastName }}
+                    </td>
+                    <td style="width:150px;">
+                        {{ contact.phoneNo }}
+                    </td>
+                    <td style="width:250px;">
+                        {{ contact.email }}
+                    </td>
+                    <td style="width:115px;">
+                        <a class="link" style="color: #3399e0;" (click)="addContact('view', contact.id)">View</a>
+                    </td>
+                    <td style="width:110px;">
+                        <a class="link" style="color: #3399e0;" (click)="addContact('modify',contact.id)">Edit</a>
+                    </td>
+                    <td style="width:115px;"    >
+                        <a class="link" style="color: red;" (click)="delete(contact.id)">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="!contactData || contactData.length === 0" class=" noContent row col-md-11">
+            <p>{{ emptyTableMessage }}</p>
+        </div>
+    </div>
+</div>
