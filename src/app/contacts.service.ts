@@ -113,6 +113,7 @@ export class ContactsService {
      */
     setData(data: IContact[]) {
         this.contactData = data;
+        localStorage.setItem('contacts', JSON.stringify(this.contactData));
     }
 
     /** function to get data from local storage
