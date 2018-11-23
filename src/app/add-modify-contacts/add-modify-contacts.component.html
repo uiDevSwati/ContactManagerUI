@@ -72,8 +72,7 @@
             <div class="col-md-12">
                 <label class="col-md-6" name="alternateNoLabel">Alternate Number</label>
                 <input class="col-md-5" type="number" [disabled]="mode === 'view'" [(ngModel)]="contact.alternateNo"
-                    name="alternateNo" #alternateNoRef="ngModel" required minlength="10" maxlength="16" />
-                <span class="requiredClass col-md-1">*</span>
+                    name="alternateNo" #alternateNoRef="ngModel" minlength="10" maxlength="16" />
             </div>
             <!-- error message -->
             <div class="errorMessage col-md-12" *ngIf="contact.alternateNo && (contact.alternateNo.toString().length > 16 || contact.alternateNo.toString().length < 10) && (alternateNoRef.dirty || alternateNoRef.touched)">
