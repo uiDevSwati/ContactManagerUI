@@ -40,6 +40,11 @@ export class AddModifyContactsComponent implements OnInit {
      */
     contact: IContact;
 
+    /** variable to hold email's validity
+     * @memberof AddModifyContactsComponent
+     */
+    isEmailValid: boolean;
+
     /**contructor initializes class attributes
      * @memberof AddModifyContactsComponent
      * @param activatedRoute: ActivatedRoute
@@ -52,6 +57,7 @@ export class AddModifyContactsComponent implements OnInit {
         this.contact = new Contact();
         this.dataLoaded = false;
         this.cancelButton = 'Cancel';
+        this.isEmailValid = true;
     }
 
     /** initializes component
@@ -90,5 +96,13 @@ export class AddModifyContactsComponent implements OnInit {
             this.contactService.addContact(this.contact);
         }
         this.router.navigate(['home']);
+    }
+
+    /** function to validate email
+     * @memberof AddModifyContactsComponent
+     */
+    emailValidation(event) {
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        this.isEmailValid = re.test(String(this.contact.email).toLowerCase());
     }
 }
