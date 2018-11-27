@@ -45,6 +45,21 @@ export class AddModifyContactsComponent implements OnInit {
      */
     isEmailValid: boolean;
 
+    /** variable to hold last name's validity
+     * @memberof AddModifyContactsComponent
+     */
+    isLastNameValid: boolean;
+
+    /** variable to hold last name's validity
+     * @memberof AddModifyContactsComponent
+     */
+    isFirstNameValid: boolean;
+
+    /** variable to hold error message
+     * @memberof AddModifyContactsComponent
+     */
+    errorMessage: string;
+
     /**contructor initializes class attributes
      * @memberof AddModifyContactsComponent
      * @param activatedRoute: ActivatedRoute
@@ -58,6 +73,9 @@ export class AddModifyContactsComponent implements OnInit {
         this.dataLoaded = false;
         this.cancelButton = 'Cancel';
         this.isEmailValid = true;
+        this.isFirstNameValid = true;
+        this.isLastNameValid = true;
+        this.errorMessage = '';
     }
 
     /** initializes component
@@ -90,12 +108,17 @@ export class AddModifyContactsComponent implements OnInit {
      * @memberof AddModifyContactsComponent
      */
     save() {
-        if (this.mode === 'modify') {
-            this.contactService.updateContactData(this.contact);
+        if (this.isEmailValid && this.isFirstNameValid && this.isLastNameValid && this.contact.phoneNo.toString().length > 10 && this.contact.phoneNo.toString().length < 16 && this.contact.email.length !== 0 && this.contact.firstName.length >= 3 && this.contact.lastName.length >= 3) {
+            this.errorMessage = '';
+            if (this.mode === 'modify') {
+                this.contactService.updateContactData(this.contact);
+            } else {
+                this.contactService.addContact(this.contact);
+            }
+            this.router.navigate(['home']);
         } else {
-            this.contactService.addContact(this.contact);
+            this.errorMessage = "Please fill required details.";
         }
-        this.router.navigate(['home']);
     }
 
     /** function to validate email
@@ -104,5 +127,17 @@ export class AddModifyContactsComponent implements OnInit {
     emailValidation(event) {
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         this.isEmailValid = re.test(String(this.contact.email).toLowerCase());
+    }
+
+    /** function to validate name
+     * @memberof AddModifyContactsComponent
+     */
+    nameValidation(event, type: string) {
+        let re = /[^A-Za-z0-9\s]/g;
+        if (type === "fName") {
+            this.isFirstNameValid = (!re.test(String(event).toLowerCase()) && event.length >= 3);
+        } else {
+            this.isLastNameValid = !re.test(String(event).toLowerCase()) && event.length >= 3;
+        }
     }
 }

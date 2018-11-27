@@ -8,21 +8,27 @@
             </div>
             <div class="col-md-7 buttonWrapper">
                 <button class="btn btn-primary col-md-3" (click)="cancel()"> {{cancelButton}} </button>
-                <button class="btn btn-primary col-md-4" *ngIf="mode!=='view'" (click)="save()" [disabled]="contactForm.invalid">
+                <button class="btn btn-primary col-md-4" *ngIf="mode!=='view'" (click)="save()">
                     {{ saveButton }} </button>
+            </div>
+            <!-- error message -->
+            <div class="errorMessage mainMessage col-md-12" *ngIf="errorMessage.length > 0">
+                <div class="col-md-6" style="color:red">
+                    {{ errorMessage }}
+                </div>
             </div>
         </div>
         <div class="col-md-12">
             <div class="col-md-12">
                 <label class="col-md-6" name="firstNameLabel">First Name </label>
                 <input class="col-md-5" type="text" [disabled]="mode === 'view'" [(ngModel)]="contact.firstName" name="firstName"
-                    #firstNameRef="ngModel" required minlength=3 />
+                    #firstNameRef="ngModel" minlength="3" required (input)="nameValidation(contact.firstName, 'fName')" />
                 <span class="requiredClass col-md-1">*</span>
             </div>
             <!-- error message -->
-            <div class="errorMessage col-md-12" *ngIf="firstNameRef.invalid && (firstNameRef.dirty || firstNameRef.touched)">
-                <div class="col-md-6" *ngIf="firstNameRef.errors.minlength" style="color:red">
-                    First Name must be at least 3 characters long.
+            <div class="errorMessage col-md-12" *ngIf="!isFirstNameValid">
+                <div class="col-md-6" style="color:red">
+                    Requires at least 3 characters and cannot have special characters.
                 </div>
             </div>
         </div>
@@ -30,13 +36,13 @@
             <div class="col-md-12">
                 <label class="col-md-6" name="lastNameLabel">Last Name</label>
                 <input class="col-md-5" type="text" [disabled]="mode === 'view'" [(ngModel)]="contact.lastName" name="lastName"
-                    required minlength="3" #lastNameRef="ngModel" />
+                    required #lastNameRef="ngModel" minlength="3" (input)="nameValidation(contact.lastName, 'lName')" />
                 <span class="requiredClass col-md-1">*</span>
             </div>
             <!-- error message -->
-            <div class="errorMessage col-md-12" *ngIf="lastNameRef.invalid && (lastNameRef.dirty || lastNameRef.touched)">
-                <div class="col-md-6" *ngIf="lastNameRef.errors.minlength" style="color:red">
-                    Last Name must be at least 3 characters long.
+            <div class="errorMessage col-md-12" *ngIf="!isLastNameValid">
+                <div class="col-md-6" style="color:red">
+                    Requires at least 3 characters and cannot have special characters.
                 </div>
             </div>
         </div>
@@ -44,7 +50,7 @@
             <div class="col-md-12">
                 <label class="col-md-6" name="phoneNoLabel">Contact Number</label>
                 <input class="col-md-5" type="number" [disabled]="mode === 'view'" [(ngModel)]="contact.phoneNo" name="phoneNo"
-                    #phoneNoRef="ngModel" required minlength="10" maxlength="16" />
+                    #phoneNoRef="ngModel" required />
                 <span class="requiredClass col-md-1">*</span>
             </div>
             <!-- error message -->
@@ -57,8 +63,8 @@
         <div class="col-md-12">
             <div class="col-md-12">
                 <label class="col-md-6" name="emailLabel">Email ID</label>
-                <input class="col-md-5" type="email" emailvalidator [disabled]="mode === 'view'" [(ngModel)]="contact.email"
-                    name="email" required #emailRef="ngModel" (input)=emailValidation($event.target.value) pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"/>
+                <input class="col-md-5" type="email" [disabled]="mode === 'view'" [(ngModel)]="contact.email" name="email"
+                    required #emailRef="ngModel" (input)=emailValidation(contact.email) />
                 <span class="requiredClass col-md-1">*</span>
             </div>
             <!-- error message -->
@@ -72,7 +78,7 @@
             <div class="col-md-12">
                 <label class="col-md-6" name="alternateNoLabel">Alternate Number</label>
                 <input class="col-md-5" type="number" [disabled]="mode === 'view'" [(ngModel)]="contact.alternateNo"
-                    name="alternateNo" #alternateNoRef="ngModel" minlength="10" maxlength="16" />
+                    name="alternateNo" #alternateNoRef="ngModel" />
             </div>
             <!-- error message -->
             <div class="errorMessage col-md-12" *ngIf="contact.alternateNo && (contact.alternateNo.toString().length > 16 || contact.alternateNo.toString().length < 10) && (alternateNoRef.dirty || alternateNoRef.touched)">

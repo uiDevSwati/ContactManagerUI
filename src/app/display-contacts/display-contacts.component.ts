@@ -42,6 +42,7 @@ export class DisplayContactsComponent implements OnInit {
             actions: 'Actions'
         };
         this.emptyTableMessage = '';
+        this.contactData = [];
     }
 
     /**
@@ -49,13 +50,12 @@ export class DisplayContactsComponent implements OnInit {
      * @memberof DisplayContactsComponent
      */
     ngOnInit() {
-        if (!localStorage.getItem('contacts')) {
+        this.contactData = this.contactService.getData();
+        if (!this.contactData || (this.contactData && this.contactData.length === 0)) {
             this.contactService.getContactSummaryData().subscribe(res => {
                 this.contactData = res;
                 this.contactService.setData(this.contactData);
             });
-        } else {
-            this.contactData = this.contactService.getData();
         }
         if (!this.contactData || this.contactData.length === 0) {
             this.emptyTableMessage = 'No Data Found';
@@ -75,7 +75,7 @@ export class DisplayContactsComponent implements OnInit {
             this.router.navigate([param + '/' + id]);
         }
     }
-    
+
     /** function to delete contact
      * @param id: string
      * @memberof DisplayContactsComponent
